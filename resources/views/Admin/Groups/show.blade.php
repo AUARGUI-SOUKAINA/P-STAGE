@@ -16,14 +16,6 @@
                     <ul class="list-disc">
                         @foreach ($students as $student)
                             <li> {{ $student->name }}   |    {{ $student->email }}</li>
-                            @if (Auth::user()->usertype === 'teacher')
-                                <form  method="POST">
-                                            @csrf
-                                            <input type="checkbox" name="status" value="present"> Present
-                                            <input type="checkbox" name="status" value="absent"> Absent
-                                            <button type="submit">Submit</button>
-                                </form>
-                            @endif
                         @endforeach
                     </ul>
                     @endif

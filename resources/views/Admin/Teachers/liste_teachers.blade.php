@@ -41,7 +41,7 @@
 
                                     
                                     <button type="submit" class="text-blue-500 hover:text-blue-700">EDIT</button>
-                                  
+                                    <!-- </form> -->
                                     
                                 </td>
                             </tr>

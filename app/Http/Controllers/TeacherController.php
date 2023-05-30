@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\User; 
 use Illuminate\Http\Request;
 use Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TeacherCredentials;
+
 class TeacherController extends Controller
 {
     
@@ -38,46 +41,27 @@ public function createT()
 }
 public function storeT(Request $request)
 {
-        
-// Validate the request data
-$validatedData = $request->validate([
-'name' => 'required|max:255',
-'email' => 'required|email|unique:users,email',
-'password' => 'required|confirmed',
-]);
+    // Validate the request data
+    $validatedData = $request->validate([
+        'name' => 'required|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|confirmed',
+    ]);
 
-// Create the new teacher
-$student = new User;
-$student->name = $validatedData['name'];
-$student->email = $validatedData['email'];
-$student->password = Hash::make($validatedData['password']);
-$student->usertype = 'teacher';
-$student->save();
+    // Create the new teacher
+    $teacher = new User;
+    $teacher->name = $validatedData['name'];
+    $teacher->email = $validatedData['email'];
+    $teacher->password = Hash::make($validatedData['password']);
+    $teacher->usertype = 'teacher';
+    $teacher->save();
 
-// Redirect back to the teachers index page
-return redirect()->route('listT')->with('success', 'teacher added successfully.');
+    // Send email to the teacher with their login credentials
+    Mail::to($teacher->email)->send(new TeacherCredentials($teacher, $validatedData['password']));
+
+    return redirect()->route('listT')->with('success', 'Teacher added successfully.');
 }
 
 ///////////////////////////EDIT//////////////////////////////
-public function edit($id)
-{
-    $teacher = User::findOrFail($id);
-    
-    return view('admin.teachers.teacher', compact('teacher'));
-}
 
-public function update(Request $request, $id)
-{
-    $validatedData = $request->validate([
-        'name' => 'required',
-        'email' => 'required|email',
-    ]);
-
-
-    $student = User::findOrFail($id);
-    $student->name = $request->input('name');
-    $student->email = $request->input('email');
-    $student->save();
-    return redirect()->route('listT')->with('success', 'teachers updated successfully.');
-}
 }

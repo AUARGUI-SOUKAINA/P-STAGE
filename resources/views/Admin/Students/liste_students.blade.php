@@ -38,8 +38,8 @@
                                     </form>
                                     <!-- <span class="text-gray-400 mx-2">|</span> -->
                                     <form method="POST" action="{{ route('students.update', $student->id) }}">
-                                    @csrf
                                     @method('PUT')
+                                    @csrf
                                     <button type="submit" class="text-blue-500 hover:text-blue-700">EDIT</button>
                                     </form>
                                 </td>

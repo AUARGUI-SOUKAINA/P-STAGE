@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-blue-800 dark:text-blue-200 leading-tight">TimeTable</h1>
-    </x-slot><br><br>
+    </x-slot>
     
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

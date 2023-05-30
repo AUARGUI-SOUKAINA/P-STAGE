@@ -5,6 +5,8 @@ use App\Models\User;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\StudentCredentials;
 
 class StudentController extends Controller
 {
@@ -66,9 +68,11 @@ public function destroy($id)
         $student->group()->associate($group);
         $student->save();
 
+        // Send email to the student with their login credentials
+    Mail::to($student->email)->send(new StudentCredentials($student, $validatedData['password']));
 
-        // Redirect back to the students index page
-        return redirect()->route('listS')->with('success', 'Student added successfully.');
+    // Redirect back to the students index page
+    return redirect()->route('listS')->with('success', 'Student added successfully.');
 }
 
 //////////*******************EDIT************************/////////////////   
@@ -83,16 +87,20 @@ public function edit($id)
 
 public function update(Request $request, $id)
 {
+    // Validate the request data
     $validatedData = $request->validate([
         'name' => 'required',
         'email' => 'required|email',
         'group' => 'required|exists:groups,id'
     ]);
 
+    // Find the student by ID
     $student = User::findOrFail($id);
-    $student->name = $request->input('name');
-    $student->email = $request->input('email');
-    $student->group = $request->input('group');
+
+    // Update the student's information
+    $student->name = $validatedData['name'];
+    $student->email = $validatedData['email'];
+    $student->group = $validatedData['group'];
     $student->save();
 
     return redirect()->route('listeS')->with('success', 'Student updated successfully.');
