@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-blue-800 dark:text-blue-200 leading-tight">
             {{ __('Groups') }}
         </h2>
     </x-slot>
@@ -20,7 +20,8 @@
                             <div class="flex items-center justify-between">
                                 <a href="{{ route('groups.show', $group->id) }}" class="text-gray-500 hover:underline">{{ $group->name }}</a>
                                 @if (Auth::user()->usertype === 'admin')
-                                    <form action="{{ route('groups.destroy', $group->id) }}" method="POST">
+                                <span class="text-gray-400 mx-2">|</span>    
+                                <form action="{{ route('groups.destroy', $group->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 ml-2" onclick="return confirm('Are you sure you want to delete this Group?')">Delete</button>

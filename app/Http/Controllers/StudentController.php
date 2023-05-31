@@ -98,13 +98,14 @@ public function update(Request $request, $id)
     $student = User::findOrFail($id);
 
     // Update the student's information
-    $student->name = $validatedData['name'];
-    $student->email = $validatedData['email'];
-    $student->group = $validatedData['group'];
+    $student->name = $request->input('name');
+    $student->email = $request->input('email');
+    $student->group_id = $request->input('group'); // Update to 'group_id'
     $student->save();
 
-    return redirect()->route('listeS')->with('success', 'Student updated successfully.');
+    return redirect()->route('listS')->with('success', 'Student updated successfully.');
 }
+
 
 }
 

@@ -63,5 +63,25 @@ public function storeT(Request $request)
 }
 
 ///////////////////////////EDIT//////////////////////////////
+public function edit($id)
+{
+    $teacher = User::findOrFail($id);
+    
+    return view('admin.teachers.edit_teacher', compact('teacher'));
+}
 
+public function update(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'name' => 'required',
+        'email' => 'required|email',
+    ]);
+
+
+    $teacher = User::findOrFail($id);
+    $teacher->name = $request->input('name');
+    $teacher->email = $request->input('email');
+    $teacher->save();
+    return redirect()->route('listT')->with('success', 'teachers updated successfully.');
+}
 }

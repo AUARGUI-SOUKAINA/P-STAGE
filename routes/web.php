@@ -8,18 +8,25 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\TimetableController;
-
-
+use App\Http\Controllers\PDFController;
+  
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
+
+
+//////////export PDF ROUTES 
+Route::get('generate-pdfS', [PDFController::class, 'generatePDFS'])->name('pdf.student');
+Route::get('generate-pdfT', [PDFController::class, 'generatePDFT'])->name('pdf.teacher');
+Route::get('/groups/{groupId}/generate-pdf', [PDFController::class, 'generatePDF'])->name('pdf.group.student');
+Route::get('generate-pdf/{groupId}', [PDFController::class, 'generatePDFTimeT'])->name('pdf.timetable.group');
 
 
 Route::get('/', function () {
@@ -43,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/timetables/create', [TimetableController::class, 'create'])->name('timetable.create'); // New route for create view
     Route::post('/timetables', [TimetableController::class, 'store'])->name('timetable.store'); // Add route to handle form submission
     Route::get('/timetables/{id}/edit', [TimetableController::class, 'edit'])->name('timetable.edit');
-    Route::put('/timetables/{id}', [TimetableController::class, 'update'])->name('timetable.update');
+    Route::put('/timetables/{timetable}/update', [TimetableController::class, 'update'])->name('timetable.update');
     Route::get('/timetables/show', [TimetableController::class, 'show'])->name('timetable.show');//timetable every group group
     Route::delete('/timetables/{timetable}', [TimetableController::class, 'destroy'])->name('timetable.destroy');
 
@@ -76,7 +83,8 @@ Route::delete('/teachers/{id}', [TeacherController::class, 'destroy'])->name('te
 Route::get('/teachers/add', [TeacherController::class, 'createT'])->name('teachers.add');
 Route::post('/teachers', [TeacherController::class, 'storeT'])->name('teachers.store');
 
-
+Route::get('/teachers/{id}/edit', [TeacherController::class, 'edit'])->name('teachers.edit');
+Route::put('/teachers/{id}/update', [TeacherController::class, 'update'])->name('teachers.update');
 
 
 Route::middleware('auth')->group(function () {

@@ -60,8 +60,10 @@ class TimetableController extends Controller
         // Retrieve the list of teachers and subjects to populate dropdowns in the form
         
         $teachers = User::where('usertype', 'teacher')->get();
+        $groups = Group::all();
         $timetable_id = $timetable->id;
-        return view('admin.timetable.edit', compact('timetable', 'teachers', 'timetable_id'));
+        return view('admin.timetable.edit', compact('timetable', 'teachers', 'groups', 'timetable_id'));
+
 
     }
 
@@ -74,13 +76,14 @@ class TimetableController extends Controller
             'start_time' => 'required',
             'end_time' => 'required',
             'teacher_id' => 'required',
+            
         ]);
 
         // Update the timetable
-        $timetable->day = $validatedData['day'];
-        $timetable->start_time = $validatedData['start_time'];
-        $timetable->end_time = $validatedData['end_time'];
-        $timetable->teacher_id = Auth::user()->id;
+        $timetable->day = $request->input('day');
+        $timetable->start_time = $request->input('start_time');
+        $timetable->end_time = $request->input('end_time');
+        $timetable->teacher_id = $request->input('teacher_id');
         $timetable->save();
 
         return redirect()->route('timetable.show')->with('success', 'Timetable updated successfully.');

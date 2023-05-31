@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-blue-800 dark:text-blue-200 leading-tight">Hello {{ Auth::user()->name }}</h1><br>
         @if (Auth::user()->usertype === 'student')
-        <h3 class="font-semibold text-l text-blue-800 dark:text-blue-200 leading-tight">
+        <h3 class="font-semibold text-xl text-blue-800 dark:text-blue-200 leading-tight">
         Group: {{ $group->name }} your TimeTable 
     </h3>
     @endif
