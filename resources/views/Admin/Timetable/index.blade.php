@@ -2,12 +2,12 @@
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-blue-800 dark:text-blue-200 leading-tight">Hello {{ Auth::user()->name }}</h1><br>
         @if (Auth::user()->usertype === 'student')
-        <h3 class="font-semibold text-xl text-blue-800 dark:text-blue-200 leading-tight">
-        Group: {{ $group->name }} your TimeTable 
-    </h3>
-    @endif
+            <h3 class="font-semibold text-xl text-blue-800 dark:text-blue-200 leading-tight">
+                Group: {{ $group->name }} 
+            </h3>
+        @endif
     
-    </x-slot><br><br>
+    </x-slot>
     
     
 
@@ -36,25 +36,16 @@
                         <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200">
                             @foreach ($timetables as $timetable)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $timetable->day }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $timetable->start_time }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $timetable->end_time }}</td>
+                                    <td class="border px-4 py-2">{{ $timetable->day }}</td>
+                                    <td class="border px-4 py-2">{{ $timetable->start_time }}</td>
+                                    <td class="border px-4 py-2">{{ $timetable->end_time }}</td>
                                     @if (Auth::user()->usertype === 'admin' || Auth::user()->usertype === 'student')
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $timetable->teacher->name }}</td>
+                                        <td class="border px-4 py-2">{{ $timetable->teacher->name }}</td>
                                     @endif
                                     @if (Auth::user()->usertype === 'admin' || Auth::user()->usertype === 'teacher')
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $timetable->group->name }}</td>
+                                    <td class="border px-4 py-2">{{ $timetable->group->name }}</td>
                                     @endif
-                                    @if (Auth::user()->usertype === 'admin')
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <a href="{{ route('timetable.edit', $timetable->id) }}" class="text-blue-500 hover:text-blue-700">Edit</a>
-                                            <form action="{{ route('timetable.destroy', $timetable->id) }}" method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" onclick="return confirm('Are you sure you want to delete this timetable?')" class="text-red-500 hover:text-red-700">Delete</button>
-                                            </form>
-                                        </td>
-                                    @endif
+                                    
                                 </tr>
                             @endforeach
                         </tbody>

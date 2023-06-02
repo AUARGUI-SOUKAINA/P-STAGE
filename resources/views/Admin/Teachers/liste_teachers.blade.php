@@ -39,12 +39,13 @@
                                 <td class="border px-4 py-2">{{ $teacher->email }}</td>
                                 <td class="border px-4 py-2">{{ $teacher->usertype }}</td>
                                 <td class="border px-4 py-2" >
-                                    <form method="POST" action="{{ route('teachers.destroy', $teacher->id) }}">
-                                    @csrf
-                                    @method('DELETE')
+                                    <a href="{{ route('teachers.edit', ['id' => $teacher->id]) }}" class="text-blue-500 hover:text-blue-700">EDIT</a>
+                                    <span class="text-gray-400 mx-2">|</span> 
+                                    <form method="POST" action="{{ route('teachers.destroy', $teacher->id) }}" class="inline">
+                                        @csrf
+                                        @method('DELETE')
                                         <button type="submit" onclick="return confirm('Are you sure you want to delete this teacher?')" class="text-red-500 hover:text-red-700">DELETE</button>
                                     </form>
-                                    <a href="{{ route('teachers.edit', ['id' => $teacher->id]) }}" class="text-blue-500 hover:text-blue-700">EDIT</a>
                                 </td>
                             </tr>
                             @endforeach

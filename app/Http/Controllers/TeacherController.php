@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TeacherCredentials;
+use Illuminate\Support\Str;
 
 class TeacherController extends Controller
 {
@@ -45,19 +46,21 @@ public function storeT(Request $request)
     $validatedData = $request->validate([
         'name' => 'required|max:255',
         'email' => 'required|email|unique:users,email',
-        'password' => 'required|confirmed',
     ]);
 
+
+// Generate a random password
+    $password = Str::random(10);
     // Create the new teacher
     $teacher = new User;
     $teacher->name = $validatedData['name'];
     $teacher->email = $validatedData['email'];
-    $teacher->password = Hash::make($validatedData['password']);
+    $teacher->password = Hash::make($password);
     $teacher->usertype = 'teacher';
     $teacher->save();
 
     // Send email to the teacher with their login credentials
-    Mail::to($teacher->email)->send(new TeacherCredentials($teacher, $validatedData['password']));
+    Mail::to($teacher->email)->send(new TeacherCredentials($teacher, $password));
 
     return redirect()->route('listT')->with('success', 'Teacher added successfully.');
 }

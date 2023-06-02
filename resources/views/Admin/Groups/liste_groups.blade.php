@@ -21,7 +21,7 @@
                                 <a href="{{ route('groups.show', $group->id) }}" class="text-gray-500 hover:underline">{{ $group->name }}</a>
                                 @if (Auth::user()->usertype === 'admin')
                                 <span class="text-gray-400 mx-2">|</span>    
-                                <form action="{{ route('groups.destroy', $group->id) }}" method="POST">
+                                <form action="{{ route('groups.destroy', $group->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 ml-2" onclick="return confirm('Are you sure you want to delete this Group?')">Delete</button>

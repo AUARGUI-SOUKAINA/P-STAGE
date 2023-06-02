@@ -15,7 +15,7 @@
                         Add Student
                     </button></a>
                     <a href="{{ route('pdf.student') }}">
-                        <img src="pdf.png" alt="pdf" class="w-10 h-10 ml-2">
+                        <img src="/pdf.png" alt="pdf" class="w-10 h-10 ml-2">
                     </a>
                 </div>
                 <br></br>
@@ -44,13 +44,14 @@
                 @endif
             </td>
                                 <td class="border px-4 py-2" >
-                                    <form method="POST" action="{{ route('students.destroy', $student->id) }}">
+                                <a href="{{ route('students.edit', ['id' => $student->id]) }}" class="text-blue-500 hover:text-blue-700">EDIT</a>
+                                <span class="text-gray-400 mx-2">|</span>    
+                                <form method="POST" action="{{ route('students.destroy', $student->id) }} " class="inline">
                                     @csrf
                                     @method('DELETE')
                                         <button type="submit"  class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this student?')">DELETE</button>
                                     </form>
                                     <!-- <span class="text-gray-400 mx-2">|</span> -->
-                                    <a href="{{ route('students.edit', ['id' => $student->id]) }}" class="text-blue-500 hover:text-blue-700">EDIT</a>
                                 </td>
                             </tr>
                             @endforeach

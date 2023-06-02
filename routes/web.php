@@ -38,7 +38,7 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/home',[HomeController::class, 'index'])->name('home');
-Route::get('/admin', [AdminController::class, 'index']);
+// Route::get('/admin', [AdminController::class, 'index']);
 
 //lists
 Route::get('/studentsList',[StudentController::class, 'index'])->name('listS');
@@ -49,19 +49,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/timetables', [TimetableController::class, 'index'])->name('timetable.index');
     Route::get('/timetables/create', [TimetableController::class, 'create'])->name('timetable.create'); // New route for create view
     Route::post('/timetables', [TimetableController::class, 'store'])->name('timetable.store'); // Add route to handle form submission
-    Route::get('/timetables/{id}/edit', [TimetableController::class, 'edit'])->name('timetable.edit');
-    Route::put('/timetables/{timetable}/update', [TimetableController::class, 'update'])->name('timetable.update');
+    Route::get('timetable/{id}/edit', [TimetableController::class, 'edit'])->name('timetable.edit');
+    Route::put('timetable/{id}', [TimetableController::class, 'update'])->name('timetable.update');
     Route::get('/timetables/show', [TimetableController::class, 'show'])->name('timetable.show');//timetable every group group
     Route::delete('/timetables/{timetable}', [TimetableController::class, 'destroy'])->name('timetable.destroy');
 
 });
 
-//Groups/admin
+//Groups
 Route::get('/Groups',[GroupController::class, 'index'])->name('groups');
 Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create');
 Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
 Route::get('/groups/{id}', [GroupController::class, 'show'])->name('groups.show');
 Route::delete('/groups/{id}', [GroupController::class, 'destroy'])->name('groups.destroy');
+
+
+
 
 //delete+edit+add:student
 Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('students.destroy');

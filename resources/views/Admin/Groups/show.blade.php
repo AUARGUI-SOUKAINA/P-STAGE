@@ -14,7 +14,7 @@
                     @else
                     <a href="{{ route('pdf.group.student',['groupId' => $group->id]) }}">
                     <button>
-                        <img src="pdf.png" alt="pdf" class="w-10 h-10 ml-2">
+                        <img src="/pdf.png" alt="pdf" class="w-10 h-10 ml-2">
                     </button>
                     </a>
                     <table class="table-auto w-full border-collapse border border-gray-400">

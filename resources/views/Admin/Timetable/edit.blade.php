@@ -7,14 +7,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                <form action="{{ route('timetable.update',  $timetable->id ) }}" method="POST">
-
+                <form action="{{ route('timetable.update', $timetable->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-
                         <div class="mb-4">
                             <label for="day" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Day:</label>
-                            <input type="text" name="day" id="day" value="{{ $timetable->day }}" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
+                            <select name="day" id="day" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
+                                <option value="">Select Day</option>
+                                <option value="Monday" {{ $timetable->day === 'Monday' ? 'selected' : '' }}>Monday</option>
+                                <option value="Tuesday" {{ $timetable->day === 'Tuesday' ? 'selected' : '' }}>Tuesday</option>
+                                <option value="Wednesday" {{ $timetable->day === 'Wednesday' ? 'selected' : '' }}>Wednesday</option>
+                                <option value="Thursday" {{ $timetable->day === 'Thursday' ? 'selected' : '' }}>Thursday</option>
+                                <option value="Friday" {{ $timetable->day === 'Friday' ? 'selected' : '' }}>Friday</option>
+                                <option value="Saturday" {{ $timetable->day === 'Saturday' ? 'selected' : '' }}>Saturday</option>
+                                <option value="Sunday" {{ $timetable->day === 'Sunday' ? 'selected' : '' }}>Sunday</option>
+                            </select>
                         </div>
 
                         <div class="mb-4">
@@ -45,7 +52,7 @@
                             </select>
                         </div>
                         <div class="flex justify-end">
-                            <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md">Save Changes</button>
+                            <button type="submit" class="bg-violet-700 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded">Save Changes</button>
                         </div>
                     </form>
                 </div>

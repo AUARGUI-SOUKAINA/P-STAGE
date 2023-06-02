@@ -27,20 +27,6 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-bold mb-2" for="password">
-                                {{ __('Password') }}
-                            </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-gray-700 font-bold mb-2" for="password_confirmation">
-                                {{ __('Confirm Password') }}
-                            </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password_confirmation" name="password_confirmation" type="password" required>
-                        </div>
-
-                        <div class="mb-4">
                             <label class="block text-gray-700 font-bold mb-2" for="group">
                                 {{ __('Group') }}
                             </label>

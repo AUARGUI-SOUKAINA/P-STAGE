@@ -7,21 +7,26 @@ use Illuminate\Http\Request;
 use Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StudentCredentials;
+use Illuminate\Support\Str;
+
+
 
 class StudentController extends Controller
 {
-        public function index(){
+        
+    
+    public function index(){
             $students = \App\Models\User::where('usertype', 'student')->get();
                 return view('admin.students.liste_students',['students' => $students]);
-        } 
+    } 
         
 
 
 //////////*******************DELETE************************///////////////// 
 
   
-public function destroy($id)
-{
+    public function destroy($id)
+    {
         $student = User::find($id);
         if (!$student) {
             return redirect()->back()->with('error', 'Student not found');
@@ -33,7 +38,7 @@ public function destroy($id)
             return redirect()->back()->with('error', 'Error deleting student');
         }
 
-}
+    }
         
         
 
@@ -45,31 +50,31 @@ public function destroy($id)
                 return view('admin.students.add_student', ['groups' => $groups]);
         }
         public function storeS(Request $request)
-        {
-                
-        // Validate the request data
-        $validatedData = $request->validate([
+{
+    // Validate the request data
+    $validatedData = $request->validate([
         'name' => 'required|max:255',
         'email' => 'required|email|unique:users,email',
-        'password' => 'required|confirmed',
         'group' => 'required|exists:groups,id'
-        
-        ]);
+    ]);
 
-        // Create the new student
-        $student = new User;
-        $student->name = $validatedData['name'];
-        $student->email = $validatedData['email'];
-        $student->password = Hash::make($validatedData['password']);
-        $groupId = $request->input('group');
-        $student->usertype = 'student';
-        $student->save();
-        $group = Group::findOrFail($validatedData['group']);
-        $student->group()->associate($group);
-        $student->save();
+    // Generate a random password
+    $password = Str::random(10);
 
-        // Send email to the student with their login credentials
-    Mail::to($student->email)->send(new StudentCredentials($student, $validatedData['password']));
+    // Create the new student
+    $student = new User;
+    $student->name = $validatedData['name'];
+    $student->email = $validatedData['email'];
+    $student->password = Hash::make($password);
+    $groupId = $request->input('group');
+    $student->usertype = 'student';
+    $student->save();
+    $group = Group::findOrFail($validatedData['group']);
+    $student->group()->associate($group);
+    $student->save();
+
+    // Send email to the student with their login credentials
+    Mail::to($student->email)->send(new StudentCredentials($student, $password));
 
     // Redirect back to the students index page
     return redirect()->route('listS')->with('success', 'Student added successfully.');

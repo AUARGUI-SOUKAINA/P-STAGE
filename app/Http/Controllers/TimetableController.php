@@ -53,47 +53,46 @@ class TimetableController extends Controller
 
         return redirect()->back()->with('success', 'Timetable created successfully.');
     }
+   // Show the form for editing the specified timetable
+public function edit($id)
+{
+    // Retrieve the timetable based on the provided ID
+    $timetable = Timetable::findOrFail($id);
 
-    // Show the form for editing the specified timetable
-    public function edit(Timetable $timetable)
-    {
-        // Retrieve the list of teachers and subjects to populate dropdowns in the form
-        
-        $teachers = User::where('usertype', 'teacher')->get();
-        $groups = Group::all();
-        $timetable_id = $timetable->id;
-        return view('admin.timetable.edit', compact('timetable', 'teachers', 'groups', 'timetable_id'));
+    // Retrieve the list of teachers and groups to populate dropdowns in the form
+    $teachers = \App\Models\User::where('usertype', 'teacher')->get();
+    $groups = Group::all();
 
-
-    }
-
-    // Update the specified timetable in the database
-    public function update(Request $request, Timetable $timetable)
-    {
-        // Validate the form data
-        $validatedData = $request->validate([
-            'day' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
-            'teacher_id' => 'required',
-            
-        ]);
-
-        // Update the timetable
-        $timetable->day = $request->input('day');
-        $timetable->start_time = $request->input('start_time');
-        $timetable->end_time = $request->input('end_time');
-        $timetable->teacher_id = $request->input('teacher_id');
-        $timetable->save();
-
-        return redirect()->route('timetable.show')->with('success', 'Timetable updated successfully.');
-    }
-
-    // Delete the specified timetable from the database
-    public function destroy(Timetable $timetable)
-    {
-        
-        $timetable->delete();
-        return redirect()->route('timetable.show')->with('success', 'Timetable deleted successfully.');
-    }
+    return view('admin.timetable.edit', compact('timetable', 'teachers', 'groups'));
 }
+
+
+
+// Update the specified timetable in the database
+public function update(Request $request, $id)
+{
+    // Validate the form data
+    $validatedData = $request->validate([
+        'day' => 'required',
+        'start_time' => 'required',
+        'end_time' => 'required',
+        'teacher_id' => 'required',
+        'group_id' => 'required',
+    ]);
+
+    // Find the timetable based on the provided ID
+    $timetable = Timetable::findOrFail($id);
+
+    // Update the timetable
+    $timetable->day = $validatedData['day'];
+    $timetable->group_id = $request->group_id;
+    $timetable->start_time = $validatedData['start_time'];
+    $timetable->end_time = $validatedData['end_time'];
+    $timetable->teacher_id = $request->teacher_id;
+    $timetable->save();
+
+    return redirect()->back()->with('success', 'Timetable updated successfully.');
+}
+
+}
+    

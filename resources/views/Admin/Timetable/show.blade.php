@@ -14,7 +14,7 @@
                 <div class="flex items-center">
                     <h2 class="text-2xl font-bold text-blue-800">{{ $group->name }} Timetables</h2>
                     <a href="{{ route('pdf.timetable.group', ['groupId' => $group->id]) }}">
-                    <img src="pdf.png" alt="pdf" class="w-10 h-10 ml-2">
+                    <img src="/pdf.png" alt="pdf" class="w-10 h-10 ml-2">
                     </a>
                 </div>
                     <br><br>
@@ -35,13 +35,14 @@
                                     <td class="border px-4 py-2">{{ $timetable->start_time }}</td>
                                     <td class="border px-4 py-2">{{ $timetable->end_time }}</td>
                                     <td class="border px-4 py-2">{{ $timetable->teacher->name }}</td>                                    
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="{{ route('timetable.edit', $timetable->id) }}" class="text-blue-500 hover:text-blue-700">Edit</a>
-                                        <form action="{{ route('timetable.destroy', $timetable->id) }}" method="POST" class="inline">
+                                    <td class="border px-4 py-2">
+                                    <a href="{{ route('timetable.edit', $timetable->id) }}" class="text-blue-500 hover:text-blue-700">Edit</a>
+                                    <span class="text-gray-400 mx-2">|</span>
+                                    <form action="{{ route('timetable.destroy', $timetable->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" onclick="return confirm('Are you sure you want to delete this timetable?')" class="text-red-500 hover:text-red-700">Delete</button>
-                                        </form>
+                                    </form>
                                     </td>
                                 </tr>
                             @endforeach
