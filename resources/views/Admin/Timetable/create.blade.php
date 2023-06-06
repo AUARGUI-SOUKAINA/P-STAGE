@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h3 class="font-semibold text-xl text-blue-800 dark:text-blue-200 leading-tight">
-            {{ __('Add Timetable') }}
+            {{ __('Create Timetable') }}
         </h3>
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-3xl mx-auto px-4">
+    <div class="max-w-2xl mx-auto sm:px-6 lg:px-8"> 
             <div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg p-6">
                 <form action="{{ route('timetable.store') }}" method="POST">
                     @csrf
@@ -46,7 +46,7 @@
                         <label for="end_time" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">End Time:</label>
                         <input class="border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="end_time" name="end_time" type="time" required>                    </div>
                     <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                        Add Timetable
+                        Create
                     </button>
                 </form>
             </div>

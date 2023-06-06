@@ -25,7 +25,6 @@
                             <tr class="bg-gray-200">
                                 <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
                                 <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Email</th>
-                                <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">UserType</th>
                                 <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Group</th>
                                 <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Action</th>
                             </tr>
@@ -35,7 +34,6 @@
                             <tr class="text-gray-700">
                                 <td class="border px-4 py-2">{{ $student->name }}</td>
                                 <td class="border px-4 py-2">{{ $student->email }}</td>
-                                <td class="border px-4 py-2">{{ $student->usertype }}</td>
                                 <td class="border px-4 py-2">
                 @if ($student->group)
                     {{ $student->group->name }}

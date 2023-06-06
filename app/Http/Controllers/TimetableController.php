@@ -93,6 +93,15 @@ public function update(Request $request, $id)
 
     return redirect()->back()->with('success', 'Timetable updated successfully.');
 }
+public function destroy($id)
+{
+    // Find the timetable based on the provided ID
+    $timetable = Timetable::findOrFail($id);
 
+    // Delete the timetable
+    $timetable->delete();
+
+    return redirect()->back()->with('success', 'Timetable deleted successfully.');
+}
 }
     

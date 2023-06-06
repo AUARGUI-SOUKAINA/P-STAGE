@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h1 class="font-semibold text-xl text-blue-800 dark:text-blue-200 leading-tight">TimeTable</h1>
+        <h1 class="font-semibold text-xl text-blue-800 dark:text-blue-200 leading-tight">TimeTables</h1>
     </x-slot>
     
     <div class="py-12">
@@ -12,7 +12,7 @@
                     </button> </a><br><br>
                 @foreach ($groups as $group)
                 <div class="flex items-center">
-                    <h2 class="text-2xl font-bold text-blue-800">{{ $group->name }} Timetables</h2>
+                    <h2 class="text-2xl font-bold text-blue-800">{{ $group->name }} Timetable</h2>
                     <a href="{{ route('pdf.timetable.group', ['groupId' => $group->id]) }}">
                     <img src="/pdf.png" alt="pdf" class="w-10 h-10 ml-2">
                     </a>

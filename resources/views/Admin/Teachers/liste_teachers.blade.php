@@ -28,7 +28,6 @@
                             <tr class="bg-gray-200">
                                 <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
                                 <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Email</th>
-                                <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">UserType</th>
                                 <th class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Action</th>
                             </tr>
                         </thead>
@@ -37,7 +36,6 @@
                             <tr class="text-gray-700">
                                 <td class="border px-4 py-2">{{ $teacher->name }}</td>
                                 <td class="border px-4 py-2">{{ $teacher->email }}</td>
-                                <td class="border px-4 py-2">{{ $teacher->usertype }}</td>
                                 <td class="border px-4 py-2" >
                                     <a href="{{ route('teachers.edit', ['id' => $teacher->id]) }}" class="text-blue-500 hover:text-blue-700">EDIT</a>
                                     <span class="text-gray-400 mx-2">|</span> 
