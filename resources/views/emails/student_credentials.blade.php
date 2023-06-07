@@ -4,7 +4,7 @@
     <title>Login Credentials</title>
 </head>
 <body>
-    <h1>Welcome,Student {{ $student->name }}!</h1>
+    <h1>Welcome,{{ $student->name }}!</h1>
     <p>Group: {{ $student->group->name }}</p>
     <p>Your login credentials:</p>
     <p>Email: {{ $student->email }}</p>
